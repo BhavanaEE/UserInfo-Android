@@ -37,25 +37,37 @@ class MainActivity : AppCompatActivity() {
                     validate.visibility = View.GONE
                     cancel.visibility = View.VISIBLE
                     confirm.visibility = View.VISIBLE
-                    modifyVisibility(userName,email,number,pincode,address,true)
+                    modifyVisibility(userName,email,number,pincode,address,false)
 
                 }
             }
             confirm.setOnClickListener() {
-                val intent = Intent(this, DisplayUserInfoActivity::class.java)
-                intent.putExtra("USERNAME", userName.text.toString())
-                intent.putExtra("EMAIL", email.text.toString())
-                intent.putExtra("PHONENUMBER", number.text.toString())
-                intent.putExtra("PINCODE", pincode.text.toString())
-                intent.putExtra("ADDRESS", address.text.toString())
-                startActivity(intent)
+                if (isAllFieldsChecked) {
+                    val validateResult=validateAllFields(userName,email,number,pincode,address)
+                    if (validateResult) {
+                        val intent = Intent(this, DisplayUserInfoActivity::class.java)
+                        intent.putExtra("USERNAME", userName.text.toString())
+                        intent.putExtra("EMAIL", email.text.toString())
+                        intent.putExtra("PHONENUMBER", number.text.toString())
+                        intent.putExtra("PINCODE", pincode.text.toString())
+                        intent.putExtra("ADDRESS", address.text.toString())
+                        startActivity(intent)
 
+                    }
+                }
             }
             cancel.setOnClickListener() {
-                modifyVisibility(userName,email,number,pincode,address,false)
+                modifyVisibility(userName, email, number, pincode, address, true)
             }
         }
 
+    }
+
+    override fun onBackPressed(){
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
+        super.onBackPressed()
     }
 
     private fun validateAllFields(
@@ -63,7 +75,7 @@ class MainActivity : AppCompatActivity() {
         email: EditText,
         number: EditText,
         pincode: EditText,
-        address: EditText,
+        address: EditText
     ): Boolean {
 
         if (!isValidEmail(email.text.toString())) {
