@@ -15,6 +15,7 @@ class MainActivity : AppCompatActivity() {
     val emailPattern=Pattern.compile("^[A-za-z0-9_.-]+@[a-z]+\\.+(com|co.in)")
     val userNamePattern=Pattern.compile("^[A-za-z0-9 ]*")
     val phoneNumberPattern=Pattern.compile("^[1-9][0-9]{9}")
+    var visibility=true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,15 +30,12 @@ class MainActivity : AppCompatActivity() {
         val confirm=findViewById<Button>(R.id.confirmButton)
 
         validate.setOnClickListener() {
-
             val isAllFieldsChecked = checkAllFields(userName,email,number,pincode,address)
             if (isAllFieldsChecked) {
                 val validateResult=validateAllFields(userName,email,number,pincode,address)
                 if (validateResult) {
-                    validate.visibility = View.GONE
-                    cancel.visibility = View.VISIBLE
-                    confirm.visibility = View.VISIBLE
-                    modifyVisibility(userName,email,number,pincode,address,false)
+                    visibility=false
+                    modifyVisibility(userName,email,number,pincode,address,validate,cancel,confirm,visibility)
 
                 }
             }
@@ -52,25 +50,18 @@ class MainActivity : AppCompatActivity() {
                         intent.putExtra("PINCODE", pincode.text.toString())
                         intent.putExtra("ADDRESS", address.text.toString())
                         startActivity(intent)
-
                     }
                 }
             }
             cancel.setOnClickListener() {
-                modifyVisibility(userName, email, number, pincode, address, true)
+                visibility=true
+                modifyVisibility(userName, email, number, pincode, address,validate,cancel, confirm, visibility)
             }
         }
 
     }
 
-    override fun onBackPressed(){
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
-        finish()
-        super.onBackPressed()
-    }
-
-    private fun validateAllFields(
+    fun validateAllFields(
         userName: EditText,
         email: EditText,
         number: EditText,
@@ -133,33 +124,59 @@ class MainActivity : AppCompatActivity() {
         }
         return true
     }
-    private fun isValidEmail(str: String): Boolean {
+    fun isValidEmail(str: String): Boolean {
         return emailPattern.matcher(str).matches()
     }
 
-    private fun isValidPinCode(str: String): Boolean {
+    fun isValidPinCode(str: String): Boolean {
         return pincodePattern.matcher(str).matches()
     }
 
-    private fun isValidPhone(str: String): Boolean {
+    fun isValidPhone(str: String): Boolean {
         return phoneNumberPattern.matcher(str).matches()
     }
 
-    private fun isValidUserName(str:String):Boolean{
+    fun isValidUserName(str:String):Boolean{
         return userNamePattern.matcher(str).matches()
     }
-    private fun modifyVisibility(
+
+    fun modifyVisibility(
         userName:EditText,
         email: EditText,
         number: EditText,
         pincode: EditText,
         address: EditText,
-        temp: Boolean
+        validate:Button,
+        cancel:Button,
+        confirm:Button,
+        visibility: Boolean
     ){
-        userName.isEnabled=temp
-        email.isEnabled=temp
-        pincode.isEnabled=temp
-        number.isEnabled=temp
-        address.isEnabled=temp
+        userName.isEnabled=visibility
+        email.isEnabled=visibility
+        pincode.isEnabled=visibility
+        number.isEnabled=visibility
+        address.isEnabled=visibility
+        validate.visibility = if(!visibility) View.GONE else View.VISIBLE
+        cancel.visibility = if(visibility) View.GONE else View.VISIBLE
+        confirm.visibility =if(visibility) View.GONE else View.VISIBLE
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putBoolean("visibility",visibility)
+        super.onSaveInstanceState(outState)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        val v=savedInstanceState.getBoolean("visibility")
+        val userName = findViewById<EditText>(R.id.userNameEt)
+        val email = findViewById<EditText>(R.id.emailEt)
+        val number = findViewById<EditText>(R.id.numberEt)
+        val pincode = findViewById<EditText>(R.id.pincodeEt)
+        val address = findViewById<EditText>(R.id.addressEt)
+        val validate = findViewById<Button>(R.id.buttonLabel)
+        val cancel=findViewById<Button>(R.id.cancelButton)
+        val confirm=findViewById<Button>(R.id.confirmButton)
+        modifyVisibility(userName,email, number, pincode, address,validate, cancel, confirm,v)
     }
 }
