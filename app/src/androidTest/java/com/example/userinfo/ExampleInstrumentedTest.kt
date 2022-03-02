@@ -27,12 +27,6 @@ class ExampleInstrumentedTest {
     @get:Rule
     val activityRule = ActivityScenarioRule(MainActivity::class.java)
 
-    @Test
-    fun useAppContext() {
-        // Context of the app under test.
-        val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.example.userinfo", appContext.packageName)
-    }
 
     @Test
     fun enteredFieldsWithProperValidationsOrNot() {
