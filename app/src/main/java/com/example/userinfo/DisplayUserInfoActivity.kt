@@ -13,7 +13,7 @@ class DisplayUserInfoActivity:AppCompatActivity() {
         val getPhoneNumber=intent.getStringExtra(PHONENUMBER)
         val getPincode=intent.getStringExtra(PINCODE)
         val getAddress=intent.getStringExtra(ADDRESS)
-        val outputString="Hi "+getUserName+", How are you? Are you staying at "+getAddress+"-"+getPincode+"code. I am not able to contact you on "+getPhoneNumber+". Can I email you the details at "+getEmail
+        var outputString = getString(R.string.displayMessage, getUserName, getAddress,getPincode,getPhoneNumber,getEmail)
         findViewById<TextView>(R.id.displayUserInfo).setText(outputString)
     }
 }

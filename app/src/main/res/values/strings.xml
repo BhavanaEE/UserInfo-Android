@@ -15,5 +15,6 @@
     <string name="cancelButton">Cancel</string>
     <string name="confirmButton">Confirm</string>
     <string name="output">output</string>
-    <string name="app_summary">Summary</string>
+    <string name="app_summary">Summary</string> 
+    <string name="displayMessage">Hi <i>%1$s</i>, How are you? Are you staying at <i>%2$s</i>-<i>%3s</i>code. I am not able to contact you on <i>%4$s</i>. Can I email you the details at <i>%5$s</i></string>
 </resources>
