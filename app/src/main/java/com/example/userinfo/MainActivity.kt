@@ -8,16 +8,14 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import java.util.regex.Pattern
 
 class MainActivity : AppCompatActivity() {
-    val pincodePattern = Pattern.compile("^[1-9][0-9]{5}$")
-    val emailPattern=Pattern.compile("^[A-za-z0-9_.-]+@[a-z]+\\.+(com|co.in)")
-    val userNamePattern=Pattern.compile("^[A-za-z0-9 ]*")
-    val phoneNumberPattern=Pattern.compile("^[1-9][0-9]{9}")
+    private lateinit var validation:Validation
     var visibility=true
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        validation = Validation()
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val userName = findViewById<EditText>(R.id.userNameEt)
@@ -30,25 +28,24 @@ class MainActivity : AppCompatActivity() {
         val confirm=findViewById<Button>(R.id.confirmButton)
 
         validate.setOnClickListener() {
-            val isAllFieldsChecked = checkAllFields(userName,email,number,pincode,address)
+            val isAllFieldsChecked = checkAllFields(userName.text.toString(),email.text.toString(),number.text.toString(),pincode.text.toString(),address.text.toString())
             if (isAllFieldsChecked) {
-                val validateResult=validateAllFields(userName,email,number,pincode,address)
+                val validateResult=validateAllFields(userName.text.toString(),email.text.toString(),number.text.toString(),pincode.text.toString())
                 if (validateResult) {
                     visibility=false
                     modifyVisibility(userName,email,number,pincode,address,validate,cancel,confirm,visibility)
-
                 }
             }
             confirm.setOnClickListener() {
                 if (isAllFieldsChecked) {
-                    val validateResult=validateAllFields(userName,email,number,pincode,address)
+                    val validateResult=validateAllFields(userName.text.toString(),email.text.toString(),number.text.toString(),pincode.text.toString())
                     if (validateResult) {
                         val intent = Intent(this, DisplayUserInfoActivity::class.java)
-                        intent.putExtra("USERNAME", userName.text.toString())
-                        intent.putExtra("EMAIL", email.text.toString())
-                        intent.putExtra("PHONENUMBER", number.text.toString())
-                        intent.putExtra("PINCODE", pincode.text.toString())
-                        intent.putExtra("ADDRESS", address.text.toString())
+                        intent.putExtra(USERNAME, userName.text.toString())
+                        intent.putExtra(EMAIL, email.text.toString())
+                        intent.putExtra(PHONENUMBER, number.text.toString())
+                        intent.putExtra(PINCODE, pincode.text.toString())
+                        intent.putExtra(ADDRESS, address.text.toString())
                         startActivity(intent)
                     }
                 }
@@ -62,89 +59,73 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun validateAllFields(
-        userName: EditText,
-        email: EditText,
-        number: EditText,
-        pincode: EditText,
-        address: EditText
+        userName: String,
+        email: String,
+        number: String,
+        pincode: String,
     ): Boolean {
 
-        if (!isValidEmail(email.text.toString())) {
+        if (!validation.isValidEmail(email)) {
             callToast( "Invalid Email Address")
             return false
         }
-        if (!isValidPinCode(pincode.text.toString())) {
+        if (!validation.isValidPinCode(pincode)) {
             callToast("Invalid Pincode")
             return false
         }
-        if (!isValidPhone(number.text.toString())) {
+        if (!validation.isValidPhone(number)) {
             callToast("Invalid Phone Number")
             return false
         }
-        if(!isValidUserName(userName.text.toString())){
+        if(!validation.isValidUserName(userName)){
             callToast("Invalid User Name")
             return false
         }
         return true
     }
 
-    private fun callToast(str:String){
+     fun callToast(str:String){
         Toast.makeText(applicationContext, str,
             Toast.LENGTH_SHORT).show()
     }
 
-    private fun checkAllFields(
-        userName: EditText,
-        email: EditText,
-        number: EditText,
-        pincode: EditText,
-        address: EditText
+    fun checkAllFields(
+        userName: String,
+        email: String,
+        number: String,
+        pinCode: String,
+        address: String
     ): Boolean {
 
-        if (userName.text.trim().isEmpty()) {
-            Log.i("UserName", userName.id.toString())
+        if (userName.trim().isEmpty()) {
+            Log.i("UserName", userName)
             callToast("Username shouldn't be empty")
             return false
         }
-        if (email.text.trim().isEmpty()) {
+        if (email.trim().isEmpty()) {
             callToast("Email shouldn't empty")
             return false
         }
-        if(number.text.trim().isEmpty()) {
+        if (number.trim().isEmpty()) {
             callToast("Phone number shouldn't be empty")
             return false
         }
-        if(pincode.text.trim().isEmpty()){
+        if (pinCode.trim().isEmpty()) {
             callToast("Pincode shouldn't be empty")
             return false
         }
-        if(address.text.trim().isEmpty()){
+        if (address.trim().isEmpty()) {
             callToast("Address shouldn't be empty")
             return false
         }
         return true
-    }
-    fun isValidEmail(str: String): Boolean {
-        return emailPattern.matcher(str).matches()
-    }
-
-    fun isValidPinCode(str: String): Boolean {
-        return pincodePattern.matcher(str).matches()
-    }
-
-    fun isValidPhone(str: String): Boolean {
-        return phoneNumberPattern.matcher(str).matches()
-    }
-
-    fun isValidUserName(str:String):Boolean{
-        return userNamePattern.matcher(str).matches()
     }
 
     fun modifyVisibility(
         userName:EditText,
         email: EditText,
         number: EditText,
-        pincode: EditText,
+        pinCode: EditText,
         address: EditText,
         validate:Button,
         cancel:Button,
@@ -153,7 +134,7 @@ class MainActivity : AppCompatActivity() {
     ){
         userName.isEnabled=visibility
         email.isEnabled=visibility
-        pincode.isEnabled=visibility
+        pinCode.isEnabled=visibility
         number.isEnabled=visibility
         address.isEnabled=visibility
         validate.visibility = if(!visibility) View.GONE else View.VISIBLE
