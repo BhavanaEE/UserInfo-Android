@@ -166,13 +166,13 @@
             tools:ignore="TextFields" />
 
         <Button
-            android:id="@+id/buttonLabel"
+            android:id="@+id/validateButton"
             android:layout_width="0sp"
             android:layout_height="wrap_content"
             android:layout_marginTop="26dp"
             android:labelFor="@+id/buttonEntry"
             android:text="@string/button"
-            android:textColor="#6bfff7"
+            android:textColor="#444444"
             android:textSize="12sp"
             android:textColorHint="#52afaa"
             android:textAlignment="center"
@@ -189,10 +189,10 @@
             android:text="@string/cancelButton"
             android:textAlignment="center"
             android:visibility="gone"
-            android:textColor="#6bfff7"
+            android:textColor="#444444"
             android:textColorHint="#52afaa"
             android:textSize="12sp"
-            app:layout_constraintTop_toBottomOf="@+id/buttonLabel"
+            app:layout_constraintTop_toBottomOf="@+id/validateButton"
             tools:ignore="MissingConstraints"
             tools:layout_editor_absoluteX="0dp" />
 
@@ -205,12 +205,25 @@
             android:text="@string/confirmButton"
             android:textAlignment="center"
             android:visibility="gone"
-            android:textColor="#6bfff7"
+            android:textColor="#444444"
             android:textColorHint="#52afaa"
             android:textSize="12sp"
             app:layout_constraintTop_toBottomOf="@+id/cancelButton"
             tools:ignore="MissingConstraints"
             tools:layout_editor_absoluteX="0dp" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/groupView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="userNameEt,emailEt,numberEt,pincodeEt,addressEt" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/groupButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:constraint_referenced_ids="cancelButton,confirmButton" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
