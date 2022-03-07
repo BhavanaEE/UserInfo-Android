@@ -103,7 +103,11 @@ class MainActivity : AppCompatActivity() {
         validate: Button,
         visibility: Boolean,
     ) {
-        binding.groupView.isEnabled=visibility
+        binding.addressEt.isEnabled=visibility
+        binding.pincodeEt.isEnabled=visibility
+        binding.numberEt.isEnabled=visibility
+        binding.emailEt.isEnabled=visibility
+        binding.userNameEt.isEnabled=visibility
         validate.visibility = if (!visibility) View.GONE else View.VISIBLE
         binding.groupButton.visibility = if (visibility) View.GONE else View.VISIBLE
     }
