@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.userinfo.databinding.ActivityMainBinding
 
@@ -17,13 +16,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        validation = Validation()
+        validation = Validation(this)
 
         super.onCreate(savedInstanceState)
         val validate = binding.validateButton
 
         validate.setOnClickListener() {
-            val validateResult = checkAndValidateFields(binding.userNameEt.text.toString(),
+            val validateResult = validation.checkAndValidateFields(binding.userNameEt.text.toString(),
                 binding.emailEt.text.toString(),
                 binding.numberEt.text.toString(),
                 binding.pincodeEt.text.toString(),
@@ -46,57 +45,6 @@ class MainActivity : AppCompatActivity() {
             visibility = true
             modifyVisibility( validate, visibility)
         }
-    }
-
-    fun checkAndValidateFields(
-        userName: String,
-        email: String,
-        number: String,
-        pinCode: String,
-        address: String,
-    ): Boolean {
-        if (userName.trim().isEmpty()) {
-            callToast("Username shouldn't be empty")
-            return false
-        }
-        if (email.trim().isEmpty()) {
-            callToast("Email shouldn't empty")
-            return false
-        }
-        if (number.trim().isEmpty()) {
-            callToast("Phone number shouldn't be empty")
-            return false
-        }
-        if (pinCode.trim().isEmpty()) {
-            callToast("Pincode shouldn't be empty")
-            return false
-        }
-        if (address.trim().isEmpty()) {
-            callToast("Address shouldn't be empty")
-            return false
-        }
-        if (!validation.isValidUserName(userName)) {
-            callToast("Invalid User Name")
-            return false
-        }
-        if (!validation.isValidEmail(email)) {
-            callToast("Invalid Email Address")
-            return false
-        }
-        if (!validation.isValidPhone(number)) {
-            callToast("Invalid Phone Number")
-            return false
-        }
-        if (!validation.isValidPinCode(pinCode)) {
-            callToast("Invalid Pincode")
-            return false
-        }
-        return true
-    }
-
-    fun callToast(str: String) {
-        Toast.makeText(applicationContext, str,
-            Toast.LENGTH_SHORT).show()
     }
 
     fun modifyVisibility(

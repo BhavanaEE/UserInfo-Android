@@ -38,7 +38,7 @@
             android:text="@string/userName"
             android:textColor="@color/TronBlue"
             android:textSize="12sp"
-            android:textColorHint="#@color/Verdigris"
+            android:textColorHint="@color/Verdigris"
             app:layout_constraintTop_toBottomOf="@+id/textView"
             tools:layout_editor_absoluteX="0dp"
             tools:ignore="MissingConstraints" />
@@ -64,7 +64,7 @@
             android:text="@string/email"
             android:textColor="@color/TronBlue"
             android:textSize="12sp"
-            android:textColorHint="#@color/Verdigris"
+            android:textColorHint="@color/Verdigris"
             app:layout_constraintTop_toBottomOf="@+id/userNameEt"
             tools:layout_editor_absoluteX="0dp"
             tools:ignore="MissingConstraints" />
