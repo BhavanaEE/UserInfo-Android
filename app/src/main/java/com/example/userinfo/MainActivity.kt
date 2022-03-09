@@ -4,8 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import com.example.userinfo.databinding.ActivityMainBinding
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var validation: Validation
@@ -18,15 +20,18 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         validation = Validation(this)
 
+        val myEditTextList = ArrayList<EditText>()
+
+        validation.checkAllFields(myEditTextList)
+
         super.onCreate(savedInstanceState)
         val validate = binding.validateButton
 
         validate.setOnClickListener() {
-            val validateResult = validation.checkAndValidateFields(binding.userNameEt.text.toString(),
-                binding.emailEt.text.toString(),
-                binding.numberEt.text.toString(),
-                binding.pincodeEt.text.toString(),
-                binding.addressEt.text.toString())
+            for (i in 0 until binding.constraintLayout.childCount)
+                if (binding.constraintLayout.getChildAt(i) is EditText)
+                    myEditTextList.add(binding.constraintLayout.getChildAt(i) as EditText)
+            val validateResult=validation.validateAllFields(myEditTextList)
             if (validateResult) {
                 visibility = false
                 modifyVisibility( validate, visibility)
@@ -62,6 +67,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putBoolean("visibility", visibility)
+
         super.onSaveInstanceState(outState)
     }
 
