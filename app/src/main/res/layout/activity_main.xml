@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    <!-- Here you put the rest of your current view-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/BlackEel"
+        tools:context=".MainActivity">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-black"
+            android:text="@string/app_heading"
+            android:textAlignment="center"
+            android:textColor="@color/LightBlueGreen"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.842"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.022" />
+
+        <TextView
+            android:id="@+id/usernameLabel"
+            android:layout_width="0sp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="26dp"
+            android:labelFor="@+id/usernameEntry"
+            android:text="@string/userName"
+            android:textColor="@color/TronBlue"
+            android:textSize="12sp"
+            android:textColorHint="@color/Verdigris"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            tools:layout_editor_absoluteX="0dp"
+            tools:ignore="MissingConstraints" />
+
+        <EditText
+            android:id="@+id/userNameEt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:inputType="text"
+            android:textColor="@color/white"
+            android:textColorHint="@color/Verdigris"
+            android:hint="@string/enterUserName"
+            app:layout_constraintTop_toBottomOf="@+id/usernameLabel"
+            tools:layout_editor_absoluteX="0dp" />
+
+        <TextView
+            android:id="@+id/emailLabel"
+            android:layout_width="0sp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="26dp"
+            android:labelFor="@+id/emailEntry"
+            android:text="@string/email"
+            android:textColor="@color/TronBlue"
+            android:textSize="12sp"
+            android:textColorHint="@color/Verdigris"
+            app:layout_constraintTop_toBottomOf="@+id/userNameEt"
+            tools:layout_editor_absoluteX="0dp"
+            tools:ignore="MissingConstraints" />
+
+        <EditText
+            android:id="@+id/emailEt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:inputType="text"
+            android:textColor="@color/white"
+            android:textColorHint="@color/Verdigris"
+            android:hint="@string/enterEmail"
+            app:layout_constraintTop_toBottomOf="@+id/emailLabel"
+            tools:layout_editor_absoluteX="0dp"
+            tools:ignore="TextFields" />
+
+        <TextView
+            android:id="@+id/numberLabel"
+            android:layout_width="0sp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="26dp"
+            android:labelFor="@+id/numberEntry"
+            android:text="@string/number"
+            android:textColor="@color/TronBlue"
+            android:textSize="12sp"
+            android:textColorHint="@color/Verdigris"
+            app:layout_constraintTop_toBottomOf="@+id/emailEt"
+            tools:layout_editor_absoluteX="0dp"
+            tools:ignore="MissingConstraints" />
+
+        <EditText
+            android:id="@+id/numberEt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:inputType="phone"
+            android:textColor="@color/white"
+            android:textColorHint="@color/Verdigris"
+            android:hint="@string/enterNumber"
+            app:layout_constraintTop_toBottomOf="@+id/numberLabel"
+            tools:layout_editor_absoluteX="0dp"
+            tools:ignore="TextFields" />
+
+        <TextView
+            android:id="@+id/pincodeLabel"
+            android:layout_width="0sp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="26dp"
+            android:labelFor="@+id/pincodeEntry"
+            android:text="@string/pincode"
+            android:textColor="@color/TronBlue"
+            android:textSize="12sp"
+            android:textColorHint="@color/Verdigris"
+            app:layout_constraintTop_toBottomOf="@+id/numberEt"
+            tools:layout_editor_absoluteX="0dp"
+            tools:ignore="MissingConstraints" />
+
+        <EditText
+            android:id="@+id/pincodeEt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:inputType="number"
+            android:textColor="@color/white"
+            android:textColorHint="@color/Verdigris"
+            android:hint="@string/enterPincode"
+            app:layout_constraintTop_toBottomOf="@+id/pincodeLabel"
+            tools:layout_editor_absoluteX="0dp"
+            tools:ignore="TextFields" />
+
+        <TextView
+            android:id="@+id/addressLabel"
+            android:layout_width="0sp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="26dp"
+            android:labelFor="@+id/addressEntry"
+            android:text="@string/address"
+            android:textColor="@color/TronBlue"
+            android:textSize="12sp"
+            android:textColorHint="@color/Verdigris"
+            app:layout_constraintTop_toBottomOf="@+id/pincodeEt"
+            tools:layout_editor_absoluteX="0dp"
+            tools:ignore="MissingConstraints" />
+
+        <EditText
+            android:id="@+id/addressEt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:inputType="textMultiLine"
+            android:textColorHint="@color/Verdigris"
+            android:textColor="@color/white"
+            android:minLines="2"
+            android:maxLines="5"
+            android:hint="@string/enterAddress"
+            app:layout_constraintTop_toBottomOf="@+id/addressLabel"
+            tools:layout_editor_absoluteX="0dp"
+            tools:ignore="TextFields" />
+
+        <Button
+            android:id="@+id/validateButton"
+            android:layout_width="0sp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="26dp"
+            android:labelFor="@+id/buttonEntry"
+            android:text="@string/button"
+            android:textColor="@color/BlackEel"
+            android:textSize="12sp"
+            android:textColorHint="@color/Verdigris"
+            android:textAlignment="center"
+            app:layout_constraintTop_toBottomOf="@+id/addressEt"
+            tools:layout_editor_absoluteX="0dp"
+            tools:ignore="MissingConstraints" />
+
+        <Button
+            android:id="@+id/cancelButton"
+            android:layout_width="0sp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:labelFor="@+id/buttonEntry"
+            android:text="@string/cancelButton"
+            android:textAlignment="center"
+            android:visibility="gone"
+            android:textColor="@color/BlackEel"
+            android:textColorHint="@color/Verdigris"
+            android:textSize="12sp"
+            app:layout_constraintTop_toBottomOf="@+id/validateButton"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="0dp" />
+
+        <Button
+            android:id="@+id/confirmButton"
+            android:layout_width="0sp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:labelFor="@+id/buttonEntry"
+            android:text="@string/confirmButton"
+            android:textAlignment="center"
+            android:visibility="gone"
+            android:textColor="@color/BlackEel"
+            android:textColorHint="@color/Verdigris"
+            android:textSize="12sp"
+            app:layout_constraintTop_toBottomOf="@+id/cancelButton"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="0dp" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/groupView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="userNameEt,emailEt,numberEt,pincodeEt,addressEt" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/groupButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:constraint_referenced_ids="cancelButton,confirmButton" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
