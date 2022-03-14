@@ -42,7 +42,6 @@ class Validation() {
         for (field in fields) {
             if (isFieldEmpty(field.text.toString())) {
 //                callToast(field.hint.toString())
-                Log.i("bhbsh",isFieldEmpty(field.text.toString()).toString())
                 return false
             }
         }

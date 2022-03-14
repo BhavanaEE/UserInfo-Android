@@ -16,11 +16,11 @@ class SharedViewModel:ViewModel() {
     private val _email = MutableLiveData("")
     val email: LiveData<String> = _email
 
-    private val _phoneNumber = MutableLiveData(0)
-    val phoneNumber: LiveData<Int> = _phoneNumber
+    private val _phoneNumber = MutableLiveData("")
+    val phoneNumber: LiveData<String> = _phoneNumber
 
-    private val _pinCode = MutableLiveData(0)
-    val pinCode: LiveData<Int> = _pinCode
+    private val _pinCode = MutableLiveData("")
+    val pinCode: LiveData<String> = _pinCode
 
     private val _address = MutableLiveData("")
     val address: LiveData<String> = _address
@@ -31,26 +31,22 @@ class SharedViewModel:ViewModel() {
     private val _validData = MutableLiveData(false)
     val validData: LiveData<Boolean> = _validData
 
-    private val _loadScreen=MutableLiveData(true)
-    val loadScreenInfo:LiveData<Boolean> = _loadScreen
-
-    fun setLoadScreen(b:Boolean){
-        this._loadScreen.postValue(b)
-    }
-
-    fun getLoadScreen(): Boolean? {
-        return this._loadScreen.value
-    }
+    private val _cancelButtonClicked = MutableLiveData(false)
+    val cancelButtonClicked: LiveData<Boolean> = _cancelButtonClicked
 
     fun setValidData(b: Boolean) {
         this._validData.postValue(b)
+    }
+
+    fun setCancelButtonClicked(b: Boolean) {
+        this._cancelButtonClicked.postValue(b)
     }
 
     fun setConfirmButtonClicked(b: Boolean) {
        this._confirmButtonCLicked.postValue(b)
     }
 
-     fun setUserData(userName: String, email: String, phoneNumber: Int, pinCode: Int, address: String) {
+     fun setUserData(userName: String, email: String, phoneNumber: String, pinCode: String, address: String) {
         this._userName.postValue(userName)
         this._email.postValue(email)
         this._phoneNumber.postValue(phoneNumber)
@@ -66,7 +62,7 @@ class SharedViewModel:ViewModel() {
         val validateResult= this.validation.validateAllFields(myEditTextList)
         if (validateResult) {
             setValidData(true)
-            setUserData(binding.userNameEt.text.toString(),binding.emailEt.text.toString(),Integer.parseInt(binding.numberEt.text.toString()),Integer.parseInt(binding.pincodeEt.text.toString()),binding.addressEt.text.toString())
+            setUserData(binding.userNameEt.text.toString(),binding.emailEt.text.toString(),binding.numberEt.text.toString(),binding.pincodeEt.text.toString(),binding.addressEt.text.toString())
         }
     }
 }

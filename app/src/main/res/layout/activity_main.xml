@@ -11,8 +11,7 @@
         android:id="@+id/first_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        tools:ignore="Suspicious0dp" />
-<!--        android:layout_weight="3" />-->
+        android:layout_weight="3" />
 
     <FrameLayout
         android:id="@+id/second_container"

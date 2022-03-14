@@ -15,32 +15,24 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-//        val transaction1 = supportFragmentManager.beginTransaction()
-//        transaction1.replace(R.id.first_container,FirstFragment())
-//        transaction1.commit()
-
         val viewModel = ViewModelProvider(this)[SharedViewModel::class.java]
-//        if(viewModel.getLoadScreen() == true) {
-//            viewModel.loadScreenInfo.observe(this) {
-//                    update -> loadScreen(update)
-//                viewModel.setLoadScreen(false)
-//            }
-//        }
 
-        viewModel.confirmButtonClicked.observe(this) { update ->
-            showScreen(update)
-        }
+        viewModel.validData.observe(this) { showScreen(it) }
+
+        viewModel.confirmButtonClicked.observe(this) { update -> showDisplayScreen(update) }
+
+        viewModel.cancelButtonClicked.observe(this) { showFragment(R.id.second_container, Fragment(), true)}
+
     }
 
-    private fun loadScreen(update: Boolean?) {
-        showFragment(R.id.first_container,FirstFragment(),true)
-    }
-
-    private fun showScreen(update: Boolean) {
+    private fun showDisplayScreen(update: Boolean) {
         if (update) {
             showFragment(R.id.second_container, DisplayUserInfoFragment(), true)
         }
-        else
+    }
+
+    private fun showScreen(update: Boolean) {
+        if(!update)
             showFragment(R.id.first_container, FirstFragment(), true)
     }
 

@@ -37,14 +37,15 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
 
         viewModel.validData.observe(viewLifecycleOwner){
             modifyVisibility(it)
-//            viewModel.setUserData(binding.userNameEt.text.toString(),binding.emailEt.text.toString(),Integer.parseInt(binding.numberEt.text.toString()),Integer.parseInt(binding.pincodeEt.text.toString()),binding.addressEt.text.toString())
         }
+
         binding.confirmButton.setOnClickListener() {
-//            viewModel.setUserData(binding.userNameEt.text.toString(),binding.emailEt.text.toString(),Integer.parseInt(binding.numberEt.text.toString()),Integer.parseInt(binding.pincodeEt.text.toString()),binding.addressEt.text.toString())
             viewModel.setConfirmButtonClicked(true)
         }
+
         binding.cancelButton.setOnClickListener() {
             viewModel.setValidData(false)
+            viewModel.setCancelButtonClicked(true)
         }
     }
 
