@@ -10,20 +10,10 @@ class SharedViewModel:ViewModel() {
 
     private lateinit var validation: Validation
 
-    private val _userName = MutableLiveData("")
-    val userName: LiveData<String> = _userName
+    private var user: User = User("","","","","")
 
-    private val _email = MutableLiveData("")
-    val email: LiveData<String> = _email
-
-    private val _phoneNumber = MutableLiveData("")
-    val phoneNumber: LiveData<String> = _phoneNumber
-
-    private val _pinCode = MutableLiveData("")
-    val pinCode: LiveData<String> = _pinCode
-
-    private val _address = MutableLiveData("")
-    val address: LiveData<String> = _address
+    private var _user=MutableLiveData(user)
+    val userObject:LiveData<User> = _user
 
     private  val _confirmButtonCLicked=MutableLiveData(false)
     val confirmButtonClicked:LiveData<Boolean> = _confirmButtonCLicked
@@ -46,23 +36,21 @@ class SharedViewModel:ViewModel() {
        this._confirmButtonCLicked.postValue(b)
     }
 
-     fun setUserData(userName: String, email: String, phoneNumber: String, pinCode: String, address: String) {
-        this._userName.postValue(userName)
-        this._email.postValue(email)
-        this._phoneNumber.postValue(phoneNumber)
-        this._pinCode.postValue(pinCode)
-        this._address.postValue(address)
-    }
-
     fun validateOnClick(myEditTextList: ArrayList<EditText>, binding: FragmentFirstBinding) {
         this.validation = Validation()
+        this.user=User(binding.userNameEt.text.toString(),binding.emailEt.text.toString(),binding.numberEt.text.toString(),binding.pincodeEt.text.toString(),binding.addressEt.text.toString())
+
         for (i in 0 until binding.constraintLayout.childCount){
             if (binding.constraintLayout.getChildAt(i) is EditText){
                 myEditTextList.add(binding.constraintLayout.getChildAt(i) as EditText)}}
         val validateResult= this.validation.validateAllFields(myEditTextList)
         if (validateResult) {
             setValidData(true)
-            setUserData(binding.userNameEt.text.toString(),binding.emailEt.text.toString(),binding.numberEt.text.toString(),binding.pincodeEt.text.toString(),binding.addressEt.text.toString())
+            setUsersData(user)
         }
+    }
+
+    private fun setUsersData(userObject: User) {
+        this._user.postValue(userObject)
     }
 }
