@@ -10,7 +10,7 @@
         android:id="@+id/displayUserInfo"
         android:fontFamily="sans-serif-black"
         android:text="@string/app_summary"
-        android:textColor="#52afaa"
+        android:textColor="@color/Verdigris"
 
         />
 </LinearLayout>

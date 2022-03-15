@@ -13,12 +13,14 @@ class MainActivity : AppCompatActivity() {
     private lateinit var validation: Validation
     private lateinit var binding: ActivityMainBinding
 
+
     var visibility: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         validation = Validation(this)
+
 
         val myEditTextList = ArrayList<EditText>()
 
@@ -31,24 +33,21 @@ class MainActivity : AppCompatActivity() {
             for (i in 0 until binding.constraintLayout.childCount)
                 if (binding.constraintLayout.getChildAt(i) is EditText)
                     myEditTextList.add(binding.constraintLayout.getChildAt(i) as EditText)
-            val validateResult=validation.validateAllFields(myEditTextList)
+            val validateResult = validation.validateAllFields(myEditTextList)
             if (validateResult) {
                 visibility = false
-                modifyVisibility( validate, visibility)
+                modifyVisibility(validate, visibility)
             }
         }
         binding.confirmButton.setOnClickListener() {
             val intent = Intent(this, DisplayUserInfoActivity::class.java)
-            intent.putExtra(USERNAME, binding.userNameEt.text.toString())
-            intent.putExtra(EMAIL, binding.emailEt.text.toString())
-            intent.putExtra(PHONENUMBER, binding.numberEt.text.toString())
-            intent.putExtra(PINCODE, binding.pincodeEt.text.toString())
-            intent.putExtra(ADDRESS, binding.addressEt.text.toString())
+            val user = User(binding.userNameEt.text.toString(), binding.emailEt.text.toString(), binding.numberEt.text.toString(), binding.pincodeEt.text.toString(), binding.addressEt.text.toString())
+            intent.putExtra(USERDETAILS, user)
             startActivity(intent)
         }
         binding.cancelButton.setOnClickListener() {
             visibility = true
-            modifyVisibility( validate, visibility)
+            modifyVisibility(validate, visibility)
         }
     }
 
@@ -56,11 +55,11 @@ class MainActivity : AppCompatActivity() {
         validate: Button,
         visibility: Boolean,
     ) {
-        binding.addressEt.isEnabled=visibility
-        binding.pincodeEt.isEnabled=visibility
-        binding.numberEt.isEnabled=visibility
-        binding.emailEt.isEnabled=visibility
-        binding.userNameEt.isEnabled=visibility
+        binding.addressEt.isEnabled = visibility
+        binding.pincodeEt.isEnabled = visibility
+        binding.numberEt.isEnabled = visibility
+        binding.emailEt.isEnabled = visibility
+        binding.userNameEt.isEnabled = visibility
         validate.visibility = if (!visibility) View.GONE else View.VISIBLE
         binding.groupButton.visibility = if (visibility) View.GONE else View.VISIBLE
     }

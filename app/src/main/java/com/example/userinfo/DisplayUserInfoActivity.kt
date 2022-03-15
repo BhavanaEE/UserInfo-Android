@@ -8,13 +8,15 @@ class DisplayUserInfoActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_display_user)
-        val getUserName = intent.getStringExtra(USERNAME)
-        val getEmail = intent.getStringExtra(EMAIL)
-        val getPhoneNumber = intent.getStringExtra(PHONENUMBER)
-        val getPincode = intent.getStringExtra(PINCODE)
-        val getAddress = intent.getStringExtra(ADDRESS)
-        var outputString = getString(R.string.displayMessage, getUserName, getAddress, getPincode,getPhoneNumber, getEmail)
-
-        findViewById<TextView>(R.id.displayUserInfo).setText(outputString)
+        val userDetails = intent.extras?.getParcelable<User>(USERDETAILS)
+        findViewById<TextView>(R.id.displayUserInfo).text =
+            getString(
+                R.string.displayMessage,
+                userDetails?.userName,
+                userDetails?.address,
+                userDetails?.pinCode,
+                userDetails?.phoneNumber,
+                userDetails?.email
+            )
     }
 }
