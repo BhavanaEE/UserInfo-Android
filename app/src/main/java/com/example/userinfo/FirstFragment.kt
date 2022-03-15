@@ -18,7 +18,7 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding= FragmentFirstBinding.inflate(inflater,container,false)
         return binding.root
     }
@@ -26,13 +26,13 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        validation= Validation()
+        validation= Validation(requireActivity())
         val viewModel = activity?.let {ViewModelProvider(it)[SharedViewModel::class.java]} ?: throw  RuntimeException("Not an activity")
 
         val myEditTextList = ArrayList<EditText>()
 
         binding.validateButton.setOnClickListener() {
-            viewModel.validateOnClick(myEditTextList,binding)
+            validateOnClick(myEditTextList,viewModel)
         }
 
         viewModel.validData.observe(viewLifecycleOwner){
@@ -49,11 +49,25 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
         }
     }
 
+    private fun validateOnClick(myEditTextList: ArrayList<EditText>, viewModel: SharedViewModel) {
+        for (i in 0 until binding.constraintLayout.childCount){
+            if (binding.constraintLayout.getChildAt(i) is EditText){
+                myEditTextList.add(binding.constraintLayout.getChildAt(i) as EditText)}}
+
+        val checkAllFields = this.validation.checkAllFields(myEditTextList)
+        if(checkAllFields){
+            val validateAllFields = validation.validateAllFields(myEditTextList)
+            if(validateAllFields){
+                viewModel.validateOnClick(binding)
+            }
+        }
+    }
+
     fun modifyVisibility(
         visibility: Boolean,
     ) {
         binding.addressEt.isEnabled=!visibility
-        binding.pincodeEt.isEnabled=!visibility
+        binding.pinCodeEt.isEnabled=!visibility
         binding.numberEt.isEnabled=!visibility
         binding.emailEt.isEnabled=!visibility
         binding.userNameEt.isEnabled=!visibility

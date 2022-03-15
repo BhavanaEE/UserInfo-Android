@@ -2,37 +2,37 @@ package com.example.userinfo
 
 import android.content.Context
 import android.content.ContextWrapper
-import android.util.Log
 import android.widget.EditText
 import android.widget.Toast
 import java.util.regex.Pattern
 
-class Validation() {
-    var pincodePattern: Pattern = Pattern.compile("^[1-9][0-9]{5}$")
-    var emailPattern: Pattern = Pattern.compile("^[A-za-z0-9_.-]+@[a-z]+\\.+(com|co.in)")
-    var userNamePattern: Pattern = Pattern.compile("^[A-za-z0-9 ]*")
-    var phoneNumberPattern: Pattern = Pattern.compile("^[1-9][0-9]{9}")
+class Validation(base: Context?) : ContextWrapper(base) {
 
-    fun isValidEmail(str: String): Boolean {
+    private var pinCodePattern: Pattern = Pattern.compile("^[1-9][0-9]{5}$")
+    private var emailPattern: Pattern = Pattern.compile("^[A-za-z0-9_.-]+@[a-z]+\\.+(com|co.in)")
+    private var userNamePattern: Pattern = Pattern.compile("^[A-za-z0-9 ]*")
+    private var phoneNumberPattern: Pattern = Pattern.compile("^[1-9][0-9]{9}")
+
+    private fun isValidEmail(str: String): Boolean {
         return emailPattern.matcher(str).matches()
     }
 
-    fun isValidPinCode(str: String): Boolean {
-        return pincodePattern.matcher(str).matches()
+    private fun isValidPinCode(str: String): Boolean {
+        return pinCodePattern.matcher(str).matches()
     }
 
-    fun isValidPhone(str: String): Boolean {
+    private fun isValidPhone(str: String): Boolean {
         return phoneNumberPattern.matcher(str).matches()
     }
 
-    fun isValidUserName(str: String): Boolean {
+    private fun isValidUserName(str: String): Boolean {
         return userNamePattern.matcher(str).matches()
     }
 
-//    fun callToast(str: String) {
-//        Toast.makeText(this, str,
-//            Toast.LENGTH_SHORT).show()
-//    }
+    private fun callToast(str: String) {
+        Toast.makeText(this,str,
+            Toast.LENGTH_SHORT).show()
+    }
 
     private fun isFieldEmpty(toString: String): Boolean {
         return toString.trim().isEmpty()
@@ -41,7 +41,7 @@ class Validation() {
     fun checkAllFields(fields: ArrayList<EditText>): Boolean {
         for (field in fields) {
             if (isFieldEmpty(field.text.toString())) {
-//                callToast(field.hint.toString())
+                callToast(field.hint.toString())
                 return false
             }
         }
@@ -53,23 +53,23 @@ class Validation() {
     ): Boolean {
         if(checkAllFields(fields)) {
             if (!isValidUserName(fields[0].text.toString())) {
-//                callToast(getString(R.string.invalidUserName))
+                callToast(getString(R.string.invalidUserName))
                 return false
             }
             if (!isValidEmail(fields[1].text.toString())) {
-//                callToast(getString(R.string.invalidEmail))
+                callToast(getString(R.string.invalidEmail))
                 return false
             }
             if (!isValidPhone(fields[2].text.toString())) {
-//                callToast(getString(R.string.invalidPhoneNumber))
+                callToast(getString(R.string.invalidPhoneNumber))
                 return false
             }
             if (!isValidPinCode(fields[3].text.toString())) {
-//                callToast(getString(R.string.invalidPincode))
+                callToast(getString(R.string.invalidPinCode))
                 return false
             }
-
         }
         return true
     }
+
 }

@@ -1,14 +1,11 @@
 package com.example.userinfo
 
-import android.widget.EditText
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.userinfo.databinding.FragmentFirstBinding
 
 class SharedViewModel:ViewModel() {
-
-    private lateinit var validation: Validation
 
     private var user: User = User("","","","","")
 
@@ -36,18 +33,10 @@ class SharedViewModel:ViewModel() {
        this._confirmButtonCLicked.postValue(b)
     }
 
-    fun validateOnClick(myEditTextList: ArrayList<EditText>, binding: FragmentFirstBinding) {
-        this.validation = Validation()
-        this.user=User(binding.userNameEt.text.toString(),binding.emailEt.text.toString(),binding.numberEt.text.toString(),binding.pincodeEt.text.toString(),binding.addressEt.text.toString())
-
-        for (i in 0 until binding.constraintLayout.childCount){
-            if (binding.constraintLayout.getChildAt(i) is EditText){
-                myEditTextList.add(binding.constraintLayout.getChildAt(i) as EditText)}}
-        val validateResult= this.validation.validateAllFields(myEditTextList)
-        if (validateResult) {
-            setValidData(true)
-            setUsersData(user)
-        }
+    fun validateOnClick(binding: FragmentFirstBinding) {
+        this.user=User(binding.userNameEt.text.toString(),binding.emailEt.text.toString(),binding.numberEt.text.toString(),binding.pinCodeEt.text.toString(),binding.addressEt.text.toString())
+        setValidData(true)
+        setUsersData(user)
     }
 
     private fun setUsersData(userObject: User) {

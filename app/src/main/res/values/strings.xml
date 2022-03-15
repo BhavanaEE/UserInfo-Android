@@ -7,8 +7,8 @@
     <string name="enterEmail">Enter Email</string>
     <string name="enterNumber">Enter Phone Number</string>
     <string name="number">Number</string>
-    <string name="pincode">Pincode</string>
-    <string name="enterPincode">Enter Pincode</string>
+    <string name="pinCode">PinCode</string>
+    <string name="enterPinCode">Enter PinCode</string>
     <string name="address">Address</string>
     <string name="enterAddress">Enter Address</string>
     <string name="button">Validate</string>
@@ -20,5 +20,5 @@
     <string name="invalidUserName">Invalid User Name</string>
     <string name="invalidEmail">Invalid Email Address</string>
     <string name="invalidPhoneNumber">Invalid Phone Number</string>
-    <string name="invalidPincode">Invalid Pincode</string>
+    <string name="invalidPinCode">Invalid PinCode</string>
 </resources>
