@@ -4,4 +4,5 @@
     <dimen name="textSizeForLabels">12sp</dimen>
     <dimen name="editTextMarginTop">8dp</dimen>
     <dimen name="textViewMarginTop">26dp</dimen>
+    <dimen name="frameLayoutHeight">0dp</dimen>
 </resources>
