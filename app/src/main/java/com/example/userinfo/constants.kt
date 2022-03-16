@@ -1,7 +1,0 @@
-package com.example.userinfo
-
-val USERNAME="USERNAME"
-val EMAIL="EMAIL"
-val PHONENUMBER="PHONENUMBER"
-val PINCODE="PINCODE"
-val ADDRESS="ADDRESS"
